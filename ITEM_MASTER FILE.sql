@@ -42,8 +42,13 @@ join (select *, ROW_NUMBER () over
 on sim.Prod = tmp.OPT_INFO_1
 join t_fwd_pick fp
 on sim.Prod= fp.item_number
-
+where t1=1
 ------ Filter only Active and stock
-where PStat = 'A'
-   and WStat ='S'
+   and PStat = 'A'
+   and WStat ='S' 
+------ Filter only repack
+   and left(location_id,1) in ('B','D','E','G','H','F') and 
+   right(location_id,2) <> '05' 
+
+order by Prod
    
